@@ -1,0 +1,88 @@
+Given an non-empty array of integers, write a function that returns an array of length 2. 
+The first element in the output array should be an integer value
+representing the greatest sum that can be generated from a strictly-increasing subsequence 
+in the array. The second element should be an array of the numbers
+in that subsequence. A subsequence is defined as a set of numbers that are not necessarily
+adjacent but that are in the same order as they appear in the array.
+Assume that there will only be one increasing subsequence with the greatest sum.
+Sample input: [10, 70, 20, 30, 50, 11, 30]
+Sample output : [110,[10,20,30,50]]
+
+for(let i = 1; i < array.length; i++){
+  for(let j = 0; j < i; j++){
+    if(array[j] < array[i]){
+      if(maxSum[j] + array[i] > maxSum[i]){
+        maxSum[i] = maxSum[j] + array[i]
+        seq[i]= j
+      }
+    }
+  }
+}
+
+main(array){
+
+let seq = // same length array, all values = null
+let maxSum = // same length array , all value = num
+
+  for(let i = 1; i < array.length; i++){
+    for(let j = 0; j < i; j++){
+      if(array[j] < array[i]){
+        if(maxSum[j] + array[i] > maxSum[i]){
+          maxSum[i] = maxSum[j] + array[i]
+          seq[i] = j
+        }
+      }
+    }
+   }
+   
+   let maxSumIdx = maxSum.indexOf(Math.max(...maxSum))
+   let allResultNum = getAllResultNum(maxSumIdx,seq,array)
+   let sum = allResultNum.reduce((a,b) => a + b)
+   return [sum, allResultNum]
+   }
+   
+   
+   Time -> O(N^2)
+   Space -> O(N)
+function maxSumIncreasingSubsequence(array){
+    let seq = array.map((el) => null)
+    let maxSum = array.map((el) => el)
+    
+    for(let i = 1; i < array.length; i++){
+      for(let j = 0; j < i; j++){
+        if(array[j] < array[i]){
+          if(maxSum[j] + array[i] > maxSum[i]){
+            maxSum[i] = maxSum[j] + array[i]
+            seq[i] = j
+          }
+        }
+      }
+    }
+    
+    let maxNumIdx = maxSum.indexOf(Math.max(...maxSum))
+    let allNums = getAllNumsByIdx(maxNumIdx,seq,array) // Helper
+    let sumOfAllNum = allNums.reduce((a,b) => a + b)
+    return [sumOfAllNum, allNum]
+    
+}
+
+function getAllNumsByIdx(idx,seq,array){
+let result = []
+  while(idx !== null){
+    result.unshift(array[idx])
+    idx = seq[idx]
+  }
+  return result
+}
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
